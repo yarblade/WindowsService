@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.ServiceProcess;
 using System.Threading;
 
-using WindowsService.Core.Extensions;
-using WindowsService.Core.Workers;
+using WindowsService.Core.Exceptions;
+using WindowsService.Core.Executors;
 
 using log4net;
 
@@ -13,13 +14,15 @@ namespace WindowsService.Core.Service
 {
 	public class WindowsService : ServiceBase
 	{
-		private readonly IWorkerManager _workerManager;
+		private readonly IExecutor[] _executors;
 		private readonly ILog _log;
+		private readonly IExceptionShield _shield;
 		private readonly CancellationTokenSource _tokenSource;
-		
-		public WindowsService(IWorkerManager workerManager, ILog log)
+
+		public WindowsService(IExecutor[] executors, IExceptionShield shield, ILog log)
 		{
-			_workerManager = workerManager;
+			_executors = executors;
+			_shield = shield;
 			_log = log;
 			_tokenSource = new CancellationTokenSource();
 		}
@@ -28,14 +31,14 @@ namespace WindowsService.Core.Service
 		{
 			if (Environment.UserInteractive)
 			{
-				_workerManager.Run(_tokenSource.Token);
+				OnStart(new string[0]);
 				Console.WriteLine(@"Press any key to stop service");
 				Console.ReadKey();
-				_tokenSource.Cancel();
+				OnStop();
 			}
 			else
 			{
-				ServiceBase.Run(this);
+				Run(this);
 			}
 		}
 
@@ -43,19 +46,14 @@ namespace WindowsService.Core.Service
 		{
 			_log.Info("Service starting.");
 
-			try
-			{
-				_workerManager.Run(_tokenSource.Token);
-			}
-			catch (Exception ex)
-			{
-				if (!ex.IsCritical())
+			_shield.Process(
+				() =>
 				{
-					_log.Error(ex.ToString());
-				}
-
-				throw;
-			}
+					foreach (var executor in _executors)
+					{
+						executor.Execute(_tokenSource.Token);
+					}
+				});
 
 			_log.Info("Service started.");
 		}
@@ -64,20 +62,16 @@ namespace WindowsService.Core.Service
 		{
 			_log.Info("Service stopping.");
 
-			try
-			{
-				_tokenSource.Cancel();
-				_workerManager.Dispose();
-			}
-			catch (Exception ex)
-			{
-				if (!ex.IsCritical())
+			_shield.Process(
+				() =>
 				{
-					_log.Error(ex.ToString());
-				}
+					_tokenSource.Cancel();
 
-				throw;
-			}
+					foreach (var executor in _executors.OfType<IDisposable>())
+					{
+						executor.Dispose();
+					}
+				});
 
 			_log.Info("Service stopped.");
 		}

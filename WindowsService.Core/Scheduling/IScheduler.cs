@@ -8,6 +8,7 @@ namespace WindowsService.Core.Scheduling
 {
 	public interface IScheduler
 	{
-		TimeSpan GetWorkerInterval(string workerName, Loading loading, TimeSpan oldInterval);
+		TimeSpan GetWorkerInterval(Loading loading);
+		bool NeedChangeInterval(Loading loading);
 	}
 }

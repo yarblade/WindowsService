@@ -4,10 +4,8 @@
 
 namespace WindowsService.Core.Settings
 {
-	public class WorkerLoadingIntervals
+	public class WorkerSettings
 	{
-		public string WorkerName { get; set; }
-
 		public TimeSpan MinInterval { get; set; }
 
 		public TimeSpan MaxInterval { get; set; }

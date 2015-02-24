@@ -10,18 +10,25 @@ namespace WindowsService.Core.Scheduling
 {
 	public class Scheduler : IScheduler
 	{
-		private readonly WorkersSettings _workersSettings;
+		private readonly WorkerSettings _workerSettings;
+		private Loading _previousLoading;
 
-		public Scheduler(WorkersSettings workersSettings)
+		public Scheduler(WorkerSettings workerSettings)
 		{
-			_workersSettings = workersSettings;
+			_workerSettings = workerSettings;
+			_previousLoading = Loading.Full;
 		}
 
-		public TimeSpan GetWorkerInterval(string workerName, Loading loading, TimeSpan oldInterval)
+		public TimeSpan GetWorkerInterval(Loading loading)
 		{
-			var intervals = _workersSettings.WorkersLoadingIntervals.Single(x => x.WorkerName == workerName);
-			
-			return intervals.LoadingIntervals.Single(x => x.Loading == loading).Interval;
+			_previousLoading = loading;
+
+			return _workerSettings.LoadingIntervals.Single(x => x.Loading == loading).Interval;
+		}
+
+		public bool NeedChangeInterval(Loading loading)
+		{
+			return loading != _previousLoading;
 		}
 	}
 }

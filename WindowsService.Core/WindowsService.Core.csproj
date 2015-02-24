@@ -59,7 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Loading.cs" />
+    <Compile Include="Exceptions\ExceptionShield.cs" />
+    <Compile Include="Exceptions\IExceptionShield.cs" />
+    <Compile Include="Executors\IExecutor.cs" />
     <Compile Include="Executors\IWorkerExecutor.cs" />
+    <Compile Include="Executors\ScheduledExecutor.cs" />
+    <Compile Include="Executors\SingleWorkerExecutor.cs" />
     <Compile Include="Executors\WorkerExecutor.cs" />
     <Compile Include="Extensions\ExceptionExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,12 +74,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Settings\LoadingInterval.cs" />
-    <Compile Include="Settings\WorkerLoadingIntervals.cs" />
-    <Compile Include="Settings\WorkersSettings.cs" />
+    <Compile Include="Settings\WorkerSettings.cs" />
     <Compile Include="Workers\IAsyncWorker.cs" />
     <Compile Include="Workers\IWorker.cs" />
-    <Compile Include="Workers\IWorkerManager.cs" />
-    <Compile Include="Workers\WorkerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\yarblade.snk">
