@@ -14,16 +14,20 @@ namespace WindowsService.Core.Executors
 {
 	public class ScheduledExecutor : IExecutor, IDisposable
 	{
-		private readonly IWorkerExecutor _executor;
+		private readonly IAsyncExecutor _executor;
 		private readonly ILog _log;
 		private readonly IScheduler _scheduler;
+		private readonly string _workerName;
 		private Timer _timer;
+		private readonly SemaphoreSlim _semaphore;
 
-		public ScheduledExecutor(IWorkerExecutor executor, IScheduler scheduler, ILog log)
+		public ScheduledExecutor(IAsyncExecutor executor, IScheduler scheduler, string workerName, ILog log)
 		{
 			_executor = executor;
 			_scheduler = scheduler;
+			_workerName = workerName;
 			_log = log;
+			_semaphore = new SemaphoreSlim(initialCount: 1);
 		}
 
 		public void Dispose()
@@ -49,6 +53,31 @@ namespace WindowsService.Core.Executors
 
 		private async Task ExecuteAsync(CancellationToken token)
 		{
+			if (token.IsCancellationRequested)
+			{
+				return;
+			}
+
+			var lockTaken = false;
+			try
+			{
+				lockTaken = _semaphore.Wait(0);
+				if (lockTaken)
+				{
+					await ExecuteAsyncImpl(token);
+				}
+			}
+			finally
+			{
+				if (lockTaken)
+				{
+					_semaphore.Release();
+				}
+			}
+		}
+
+		private async Task ExecuteAsyncImpl(CancellationToken token)
+		{
 			try
 			{
 				var loading = await _executor.ExecuteAsync(token);
@@ -64,7 +93,7 @@ namespace WindowsService.Core.Executors
 				ex.Flatten().Handle(
 					x =>
 					{
-						_log.Error("Unexpected exception while service controller execution: " + x);
+						_log.Error("Unexpected exception while scheduled execution: " + x);
 
 						return !ex.IsCritical();
 					});
@@ -78,7 +107,7 @@ namespace WindowsService.Core.Executors
 					throw;
 				}
 
-				_log.Error("Unexpected exception while service controller execution: " + ex);
+				_log.Error("Unexpected exception while scheduled execution: " + ex);
 			
 				ChangeTimer(Loading.Fail);
 			}
@@ -88,7 +117,11 @@ namespace WindowsService.Core.Executors
 		{
 			if (_scheduler.NeedChangeInterval(loading))
 			{
-				_timer.Change(TimeSpan.Zero, _scheduler.GetWorkerInterval(loading));
+				var interval = _scheduler.GetWorkerInterval(loading);
+
+				_log.InfoFormat("Loading of '{0}' worker was changed to {1}. New interval: {2}", _workerName, loading, interval);
+
+				_timer.Change(TimeSpan.Zero, interval);
 			}
 		}
 	}

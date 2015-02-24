@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 
 namespace WindowsService.Core.Executors
 {
-	public class WorkerExecutor : IWorkerExecutor
+	public class WorkerExecutor : IAsyncExecutor
 	{
 		private readonly IUnityContainer _container;
 		private readonly string _workerName;

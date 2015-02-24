@@ -7,7 +7,7 @@ using WindowsService.Core.Entities;
 
 namespace WindowsService.Core.Executors
 {
-	public interface IWorkerExecutor
+	public interface IAsyncExecutor
 	{
 		Task<Loading> ExecuteAsync(CancellationToken token);
 	}
