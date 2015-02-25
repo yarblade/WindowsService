@@ -1,8 +1,4 @@
-﻿using WindowsService.Host.Entities;
-
-
-
-namespace WindowsService.Host.Calculators
+﻿namespace WindowsService.Host.Loading
 {
 	public static class LoadingCalculator
 	{

@@ -2,7 +2,7 @@
 
 using WindowsService.Example.Repositories;
 using WindowsService.Example.Workers;
-using WindowsService.Host.Entities;
+using WindowsService.Host.Loading;
 using WindowsService.Host.Registrars;
 using WindowsService.Host.Settings;
 using WindowsService.Host.Workers;
@@ -19,7 +19,7 @@ namespace WindowsService.Example.Registrars
 		{
 			container.RegisterType<ICityRepository, CityRepository>(WorkerNames.TimeWorker, new ContainerControlledLifetimeManager());
 
-			container.RegisterType<IWorker>(
+			container.RegisterType<IWorker<Loading>>(
 				WorkerNames.TimeWorker,
 				new InjectionFactory(
 					c => new TimeWorker(c.Resolve<ICityRepository>(WorkerNames.TimeWorker), Settings.CitiesPerRequest, Settings.TimeWorkerFileName)));
@@ -28,15 +28,15 @@ namespace WindowsService.Example.Registrars
 				WorkerNames.TimeWorker,
 				new WorkerSettings
 				{
+					FailureInterval = TimeSpan.FromMinutes(1),
 					LoadingIntervals = new[]
 					{
 						new LoadingInterval { Loading = Loading.None, Interval = TimeSpan.FromSeconds(10) },
 						new LoadingInterval { Loading = Loading.Medium, Interval = TimeSpan.FromSeconds(5) },
-						new LoadingInterval { Loading = Loading.Full, Interval = TimeSpan.FromSeconds(1) },
-						new LoadingInterval { Loading = Loading.Fail, Interval = TimeSpan.FromMinutes(1) },
+						new LoadingInterval { Loading = Loading.Full, Interval = TimeSpan.FromSeconds(1) }
 					}
-				}); 
-			ScheduledExecutorRegistrar.Register(container, WorkerNames.TimeWorker);
+				});
+			ScheduledExecutorRegistrar.Register<Loading>(container, WorkerNames.TimeWorker);
 		}
 	}
 }

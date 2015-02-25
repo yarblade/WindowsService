@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-using WindowsService.Host.Entities;
 using WindowsService.Host.Extensions;
 using WindowsService.Host.Scheduling;
+using WindowsService.Host.Workers;
 
 using log4net;
 
@@ -12,20 +12,20 @@ using log4net;
 
 namespace WindowsService.Host.Executors
 {
-	public class ScheduledExecutor : IExecutor, IDisposable
+	public class ScheduledExecutor<T> : IExecutor, IDisposable
 	{
-		private readonly IAsyncExecutor _executor;
+		private readonly IWorkerRunner<T> _workerRunner;
 		private readonly ILog _log;
-		private readonly IScheduler _scheduler;
+		private readonly IScheduler<T> _scheduler;
 		private readonly string _workerName;
 		private Timer _timer;
 		private readonly SemaphoreSlim _semaphore;
 
-		public ScheduledExecutor(IAsyncExecutor executor, IScheduler scheduler, string workerName, ILog log)
+		public ScheduledExecutor(string workerName, IWorkerRunner<T> workerRunner, IScheduler<T> scheduler, ILog log)
 		{
-			_executor = executor;
-			_scheduler = scheduler;
 			_workerName = workerName;
+			_workerRunner = workerRunner;
+			_scheduler = scheduler;
 			_log = log;
 			_semaphore = new SemaphoreSlim(initialCount: 1);
 		}
@@ -46,7 +46,7 @@ namespace WindowsService.Host.Executors
 
 		public void Execute(CancellationToken token)
 		{
-			var interval = _scheduler.GetWorkerInterval(Loading.Full);
+			var interval = _scheduler.GetInitialInterval();
 
 			_timer = new Timer(_ => ExecuteAsync(token), null, TimeSpan.Zero, interval);
 		}
@@ -80,7 +80,7 @@ namespace WindowsService.Host.Executors
 		{
 			try
 			{
-				var loading = await _executor.ExecuteAsync(token);
+				var loading = await _workerRunner.RunAsync(_workerName, token);
 				
 				ChangeTimer(loading);
 			}
@@ -97,8 +97,8 @@ namespace WindowsService.Host.Executors
 
 						return !ex.IsCritical();
 					});
-			
-				ChangeTimer(Loading.Fail);
+
+				OnFailure();
 			}
 			catch (Exception ex)
 			{
@@ -109,13 +109,13 @@ namespace WindowsService.Host.Executors
 
 				_log.Error("Unexpected exception while scheduled execution: " + ex);
 			
-				ChangeTimer(Loading.Fail);
+				OnFailure();
 			}
 		}
 
-		private void ChangeTimer(Loading loading)
+		private void ChangeTimer(T loading)
 		{
-			if (_scheduler.NeedChangeInterval(loading))
+			if (_scheduler.IsLoadingChanged(loading))
 			{
 				var interval = _scheduler.GetWorkerInterval(loading);
 
@@ -123,6 +123,15 @@ namespace WindowsService.Host.Executors
 
 				_timer.Change(TimeSpan.Zero, interval);
 			}
+		}
+
+		private void OnFailure()
+		{
+			var interval = _scheduler.GetFailureInterval();
+
+			_log.InfoFormat("Worker '{0}' was failed. New interval: {1}", _workerName, interval);
+
+			_timer.Change(TimeSpan.Zero, interval);
 		}
 	}
 }

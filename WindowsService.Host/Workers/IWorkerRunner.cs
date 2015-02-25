@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace WindowsService.Host.Workers
 {
-	public interface IAsyncWorker<T>
+	public interface IWorkerRunner<T>
 	{
-		Task<T> DoWork(CancellationToken token);
+		Task<T> RunAsync(string workerName, CancellationToken token);
 	}
 }

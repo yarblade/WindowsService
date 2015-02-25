@@ -10,6 +10,8 @@ namespace WindowsService.Host.Settings
 
 		public TimeSpan MaxInterval { get; set; }
 
+		public TimeSpan FailureInterval { get; set; }
+
 		public LoadingInterval[] LoadingIntervals { get; set; }
 	}
 }

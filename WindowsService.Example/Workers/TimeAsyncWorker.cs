@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 using WindowsService.Example.Entities;
 using WindowsService.Example.Repositories;
-using WindowsService.Host.Calculators;
-using WindowsService.Host.Entities;
+using WindowsService.Host.Loading;
 using WindowsService.Host.Workers;
 
 using Newtonsoft.Json;
@@ -17,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace WindowsService.Example.Workers
 {
-	internal class TimeAsyncWorker : IAsyncWorker
+	internal class TimeAsyncWorker : IAsyncWorker<Loading>
 	{
 		private readonly int _citiesPerRequest;
 		private readonly ICityRepository _cityRepository;
@@ -37,6 +36,8 @@ namespace WindowsService.Example.Workers
 
 			foreach (var id in ids)
 			{
+				token.ThrowIfCancellationRequested();
+
 				var client = new WebClient { Encoding = Encoding.UTF8 };
 				var json = await client.DownloadStringTaskAsync(new Uri(string.Format("https://time.yandex.ru/sync.json?geo={0}", id)));
 				var time = JsonConvert.DeserializeObject<UtcTimeWithClocks>(json);

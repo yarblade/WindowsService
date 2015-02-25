@@ -1,13 +1,11 @@
 ﻿using System.Threading;
 
-using WindowsService.Host.Entities;
-
 
 
 namespace WindowsService.Host.Workers
 {
-	public interface IWorker
+	public interface IWorker<out T>
 	{
-		Loading DoWork(CancellationToken token);
+		T DoWork(CancellationToken token);
 	}
 }

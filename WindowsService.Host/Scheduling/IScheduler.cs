@@ -1,14 +1,14 @@
 using System;
 
-using WindowsService.Host.Entities;
-
 
 
 namespace WindowsService.Host.Scheduling
 {
-	public interface IScheduler
+	public interface IScheduler<in T>
 	{
-		TimeSpan GetWorkerInterval(Loading loading);
-		bool NeedChangeInterval(Loading loading);
+		TimeSpan GetInitialInterval();
+		TimeSpan GetWorkerInterval(T loading);
+		TimeSpan GetFailureInterval();
+		bool IsLoadingChanged(T loading);
 	}
 }

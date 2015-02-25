@@ -6,8 +6,7 @@ using System.Threading;
 
 using WindowsService.Example.Entities;
 using WindowsService.Example.Repositories;
-using WindowsService.Host.Calculators;
-using WindowsService.Host.Entities;
+using WindowsService.Host.Loading;
 using WindowsService.Host.Workers;
 
 using Newtonsoft.Json;
@@ -16,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace WindowsService.Example.Workers
 {
-	internal class TimeWorker : IWorker
+	internal class TimeWorker : IWorker<Loading>
 	{
 		private readonly ICityRepository _cityRepository;
 		private readonly int _citiesPerRequest;
@@ -42,6 +41,8 @@ namespace WindowsService.Example.Workers
 			{
 				foreach (var pair in time.Clocks)
 				{
+					token.ThrowIfCancellationRequested();
+
 					writer.WriteLine("{0:s} : {2:00000000000} : {1}", time.Time + TimeSpan.FromMilliseconds(pair.Value.Offset), pair.Value.Name, pair.Value.Id);
 				}
 			}
