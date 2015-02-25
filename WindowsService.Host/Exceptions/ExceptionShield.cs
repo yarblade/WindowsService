@@ -1,12 +1,12 @@
 ﻿using System;
 
-using WindowsService.Core.Extensions;
+using WindowsService.Host.Extensions;
 
 using log4net;
 
 
 
-namespace WindowsService.Core.Exceptions
+namespace WindowsService.Host.Exceptions
 {
 	public class ExceptionShield : IExceptionShield
 	{

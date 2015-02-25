@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 
-using WindowsService.Core.Entities;
+using WindowsService.Host.Entities;
 
 
 
-namespace WindowsService.Core.Workers
+namespace WindowsService.Host.Workers
 {
 	public interface IWorker
 	{

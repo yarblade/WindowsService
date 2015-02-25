@@ -1,11 +1,11 @@
-﻿using WindowsService.Core.Scheduling;
-using WindowsService.Core.Settings;
+﻿using WindowsService.Host.Scheduling;
+using WindowsService.Host.Settings;
 
 using Microsoft.Practices.Unity;
 
 
 
-namespace WindowsService.Core.Registrars
+namespace WindowsService.Host.Registrars
 {
 	public static class SchedulerRegistrar
 	{

@@ -4,11 +4,11 @@ using System.Net;
 using System.Text;
 using System.Threading;
 
-using WindowsService.Core.Calculators;
-using WindowsService.Core.Entities;
-using WindowsService.Core.Workers;
 using WindowsService.Example.Entities;
 using WindowsService.Example.Repositories;
+using WindowsService.Host.Calculators;
+using WindowsService.Host.Entities;
+using WindowsService.Host.Workers;
 
 using Newtonsoft.Json;
 

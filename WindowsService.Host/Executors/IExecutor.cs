@@ -2,7 +2,7 @@
 
 
 
-namespace WindowsService.Core.Executors
+namespace WindowsService.Host.Executors
 {
 	public interface IExecutor
 	{

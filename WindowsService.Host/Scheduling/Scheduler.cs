@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 
-using WindowsService.Core.Entities;
-using WindowsService.Core.Settings;
+using WindowsService.Host.Entities;
+using WindowsService.Host.Settings;
 
 
 
-namespace WindowsService.Core.Scheduling
+namespace WindowsService.Host.Scheduling
 {
 	public class Scheduler : IScheduler
 	{

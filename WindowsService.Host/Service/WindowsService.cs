@@ -3,14 +3,14 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Threading;
 
-using WindowsService.Core.Exceptions;
-using WindowsService.Core.Executors;
+using WindowsService.Host.Exceptions;
+using WindowsService.Host.Executors;
 
 using log4net;
 
 
 
-namespace WindowsService.Core.Service
+namespace WindowsService.Host.Service
 {
 	public class WindowsService : ServiceBase
 	{

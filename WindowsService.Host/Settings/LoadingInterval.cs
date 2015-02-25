@@ -1,10 +1,10 @@
 ﻿using System;
 
-using WindowsService.Core.Entities;
+using WindowsService.Host.Entities;
 
 
 
-namespace WindowsService.Core.Settings
+namespace WindowsService.Host.Settings
 {
 	public class LoadingInterval
 	{

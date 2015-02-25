@@ -2,7 +2,7 @@
 
 
 
-namespace WindowsService.Core.Exceptions
+namespace WindowsService.Host.Exceptions
 {
 	public interface IExceptionShield
 	{

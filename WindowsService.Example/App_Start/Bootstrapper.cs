@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 
-using WindowsService.Core.Exceptions;
-using WindowsService.Core.Executors;
 using WindowsService.Example.Registrars;
+using WindowsService.Host.Exceptions;
+using WindowsService.Host.Executors;
 
 using log4net;
 using log4net.Config;
@@ -27,7 +27,7 @@ namespace WindowsService.Example
 
 			container.RegisterType<IExecutor[]>(
 				new InjectionFactory(c => new[] { c.Resolve<IExecutor>(WorkerNames.TimeAsyncWorker), c.Resolve<IExecutor>(WorkerNames.TimeWorker) }));
-			container.RegisterType<Core.Service.WindowsService>();
+			container.RegisterType<Host.Service.WindowsService>();
 		}
 	}
 }

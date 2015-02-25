@@ -1,8 +1,8 @@
-﻿using WindowsService.Core.Entities;
+﻿using WindowsService.Host.Entities;
 
 
 
-namespace WindowsService.Core.Calculators
+namespace WindowsService.Host.Calculators
 {
 	public static class LoadingCalculator
 	{

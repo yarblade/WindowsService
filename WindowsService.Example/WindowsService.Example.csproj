@@ -86,9 +86,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WindowsService.Core\WindowsService.Core.csproj">
+    <ProjectReference Include="..\WindowsService.Host\WindowsService.Host.csproj">
       <Project>{2762c26e-2023-495e-8979-669ae5b41d01}</Project>
-      <Name>WindowsService.Core</Name>
+      <Name>WindowsService.Host</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

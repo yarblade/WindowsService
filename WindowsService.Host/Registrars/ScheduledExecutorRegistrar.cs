@@ -1,5 +1,5 @@
-﻿using WindowsService.Core.Executors;
-using WindowsService.Core.Scheduling;
+﻿using WindowsService.Host.Executors;
+using WindowsService.Host.Scheduling;
 
 using log4net;
 
@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 
 
-namespace WindowsService.Core.Registrars
+namespace WindowsService.Host.Registrars
 {
 	public static class ScheduledExecutorRegistrar
 	{

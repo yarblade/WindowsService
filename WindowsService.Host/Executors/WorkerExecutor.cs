@@ -2,14 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-using WindowsService.Core.Entities;
-using WindowsService.Core.Workers;
+using WindowsService.Host.Entities;
+using WindowsService.Host.Workers;
 
 using Microsoft.Practices.Unity;
 
 
 
-namespace WindowsService.Core.Executors
+namespace WindowsService.Host.Executors
 {
 	public class WorkerExecutor : IAsyncExecutor
 	{

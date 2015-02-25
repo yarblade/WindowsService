@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-using WindowsService.Core.Entities;
+using WindowsService.Host.Entities;
 
 
 
-namespace WindowsService.Core.Executors
+namespace WindowsService.Host.Executors
 {
 	public interface IAsyncExecutor
 	{

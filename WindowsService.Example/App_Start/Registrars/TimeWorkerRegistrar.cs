@@ -1,11 +1,11 @@
 ﻿using System;
 
-using WindowsService.Core.Entities;
-using WindowsService.Core.Registrars;
-using WindowsService.Core.Settings;
-using WindowsService.Core.Workers;
 using WindowsService.Example.Repositories;
 using WindowsService.Example.Workers;
+using WindowsService.Host.Entities;
+using WindowsService.Host.Registrars;
+using WindowsService.Host.Settings;
+using WindowsService.Host.Workers;
 
 using Microsoft.Practices.Unity;
 

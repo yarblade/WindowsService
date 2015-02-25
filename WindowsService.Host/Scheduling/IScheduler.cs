@@ -1,10 +1,10 @@
 using System;
 
-using WindowsService.Core.Entities;
+using WindowsService.Host.Entities;
 
 
 
-namespace WindowsService.Core.Scheduling
+namespace WindowsService.Host.Scheduling
 {
 	public interface IScheduler
 	{

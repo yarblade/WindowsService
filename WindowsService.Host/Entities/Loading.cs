@@ -1,4 +1,4 @@
-﻿namespace WindowsService.Core.Entities
+﻿namespace WindowsService.Host.Entities
 {
 	public enum Loading
 	{

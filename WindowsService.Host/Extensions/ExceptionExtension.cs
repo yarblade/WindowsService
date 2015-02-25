@@ -3,7 +3,7 @@ using System.Threading;
 
 
 
-namespace WindowsService.Core.Extensions
+namespace WindowsService.Host.Extensions
 {
 	internal static class ExceptionExtension
 	{

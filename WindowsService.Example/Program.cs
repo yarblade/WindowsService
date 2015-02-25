@@ -12,7 +12,7 @@ namespace WindowsService.Example
 			{
 				Bootstrapper.Initialize(container);
 
-				container.Resolve<Core.Service.WindowsService>().Run();
+				container.Resolve<Host.Service.WindowsService>().Run();
 			}
 		}
 	}

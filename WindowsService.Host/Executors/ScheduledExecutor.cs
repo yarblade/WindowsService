@@ -2,15 +2,15 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-using WindowsService.Core.Entities;
-using WindowsService.Core.Extensions;
-using WindowsService.Core.Scheduling;
+using WindowsService.Host.Entities;
+using WindowsService.Host.Extensions;
+using WindowsService.Host.Scheduling;
 
 using log4net;
 
 
 
-namespace WindowsService.Core.Executors
+namespace WindowsService.Host.Executors
 {
 	public class ScheduledExecutor : IExecutor, IDisposable
 	{
@@ -119,7 +119,7 @@ namespace WindowsService.Core.Executors
 			{
 				var interval = _scheduler.GetWorkerInterval(loading);
 
-				_log.InfoFormat("Loading of '{0}' worker was changed to {1}. New interval: {2}", _workerName, loading, interval);
+				_log.InfoFormat("Loading of '{0}' worker changed to {1}. New interval: {2}", _workerName, loading, interval);
 
 				_timer.Change(TimeSpan.Zero, interval);
 			}
