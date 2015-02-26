@@ -1,2 +1,2 @@
 # WindowsService
-Library with common classes for creating windows services.
+Class Library with common classes for creating windows services.
