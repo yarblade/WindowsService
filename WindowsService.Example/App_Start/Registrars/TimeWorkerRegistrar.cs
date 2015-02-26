@@ -1,13 +1,11 @@
-﻿using System;
-
-using WindowsService.Example.Repositories;
+﻿using WindowsService.Example.Repositories;
 using WindowsService.Example.Workers;
-using WindowsService.Host.Loading;
 using WindowsService.Host.Registrars;
 using WindowsService.Host.Settings;
-using WindowsService.Host.Workers;
 
 using Microsoft.Practices.Unity;
+
+using SettingsReader;
 
 
 
@@ -20,17 +18,8 @@ namespace WindowsService.Example.Registrars
 			container.RegisterType<ICityRepository, CityRepository>(WorkerNames.TimeWorker, new ContainerControlledLifetimeManager());
 			container.RegisterType<WorkerSettings>(
 				WorkerNames.TimeWorker,
-				new InjectionFactory(
-					c => new WorkerSettings
-					{
-						FailureInterval = TimeSpan.FromMinutes(1),
-						LoadingIntervals = new[]
-						{
-							new LoadingInterval { Loading = Loading.None, Interval = TimeSpan.FromSeconds(10) },
-							new LoadingInterval { Loading = Loading.Medium, Interval = TimeSpan.FromSeconds(5) },
-							new LoadingInterval { Loading = Loading.Full, Interval = TimeSpan.FromSeconds(1) }
-						}
-					}));
+				new InjectionFactory(c => c.Resolve<ISettingsReader>().Read<WorkerSettings>("timeWorkerSettings")));
+
 
 			WorkerRegistrar.Register(
 				container,

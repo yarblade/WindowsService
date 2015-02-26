@@ -9,6 +9,9 @@ using log4net.Config;
 
 using Microsoft.Practices.Unity;
 
+using SettingsReader;
+using SettingsReader.Readers;
+
 
 
 namespace WindowsService.Example
@@ -21,6 +24,7 @@ namespace WindowsService.Example
 
 			container.RegisterType<ILog>(new InjectionFactory(c => LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType)));
 			container.RegisterType<IExceptionShield, ExceptionShield>();
+			container.RegisterType<ISettingsReader, ConfigurationSectionReader>();
 
 			TimeAsyncWorkerRegistrar.Register(container);
 			TimeWorkerRegistrar.Register(container);
