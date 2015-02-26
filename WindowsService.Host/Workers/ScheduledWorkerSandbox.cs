@@ -4,24 +4,23 @@ using System.Threading.Tasks;
 
 using WindowsService.Host.Extensions;
 using WindowsService.Host.Scheduling;
-using WindowsService.Host.Workers;
 
 using log4net;
 
 
 
-namespace WindowsService.Host.Executors
+namespace WindowsService.Host.Workers
 {
-	public class ScheduledExecutor<T> : IExecutor, IDisposable
+	public class ScheduledWorkerSandbox<T> : IWorkerSandbox, IDisposable
 	{
 		private readonly IWorkerRunner<T> _workerRunner;
 		private readonly ILog _log;
 		private readonly IScheduler<T> _scheduler;
 		private readonly string _workerName;
-		private Timer _timer;
 		private readonly SemaphoreSlim _semaphore;
-
-		public ScheduledExecutor(string workerName, IWorkerRunner<T> workerRunner, IScheduler<T> scheduler, ILog log)
+		private Timer _timer;
+		
+		public ScheduledWorkerSandbox(string workerName, IWorkerRunner<T> workerRunner, IScheduler<T> scheduler, ILog log)
 		{
 			_workerName = workerName;
 			_workerRunner = workerRunner;
@@ -44,14 +43,14 @@ namespace WindowsService.Host.Executors
 			}
 		}
 
-		public void Execute(CancellationToken token)
+		public void StartExecution(CancellationToken token)
 		{
 			var interval = _scheduler.GetInitialInterval();
 
-			_timer = new Timer(_ => ExecuteAsync(token), null, TimeSpan.Zero, interval);
+			_timer = new Timer(_ => ExecuteOnlyOneWorkerAtSameTime(token), null, TimeSpan.Zero, interval);
 		}
 
-		private async Task ExecuteAsync(CancellationToken token)
+		private async Task ExecuteOnlyOneWorkerAtSameTime(CancellationToken token)
 		{
 			if (token.IsCancellationRequested)
 			{
@@ -64,7 +63,7 @@ namespace WindowsService.Host.Executors
 				lockTaken = _semaphore.Wait(0);
 				if (lockTaken)
 				{
-					await ExecuteAsyncImpl(token);
+					await ExecuteAsync(token);
 				}
 			}
 			finally
@@ -76,7 +75,7 @@ namespace WindowsService.Host.Executors
 			}
 		}
 
-		private async Task ExecuteAsyncImpl(CancellationToken token)
+		private async Task ExecuteAsync(CancellationToken token)
 		{
 			try
 			{

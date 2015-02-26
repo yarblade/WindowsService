@@ -62,14 +62,13 @@
     <Compile Include="Loading\Loading.cs" />
     <Compile Include="Exceptions\ExceptionShield.cs" />
     <Compile Include="Exceptions\IExceptionShield.cs" />
-    <Compile Include="Executors\IExecutor.cs" />
+    <Compile Include="Registrars\WorkerRegistrar.cs" />
+    <Compile Include="Workers\IWorkerSandbox.cs" />
     <Compile Include="Workers\IWorkerRunner.cs" />
-    <Compile Include="Executors\ScheduledExecutor.cs" />
+    <Compile Include="Workers\ScheduledWorkerSandbox.cs" />
     <Compile Include="Workers\WorkerRunner.cs" />
     <Compile Include="Extensions\ExceptionExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registrars\ScheduledExecutorRegistrar.cs" />
-    <Compile Include="Registrars\SchedulerRegistrar.cs" />
     <Compile Include="Scheduling\IScheduler.cs" />
     <Compile Include="Scheduling\Scheduler.cs" />
     <Compile Include="Service\WindowsService.cs">

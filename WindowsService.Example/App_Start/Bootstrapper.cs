@@ -2,7 +2,7 @@
 
 using WindowsService.Example.Registrars;
 using WindowsService.Host.Exceptions;
-using WindowsService.Host.Executors;
+using WindowsService.Host.Workers;
 
 using log4net;
 using log4net.Config;
@@ -17,16 +17,21 @@ namespace WindowsService.Example
 	{
 		public static void Initialize(IUnityContainer container)
 		{
-			XmlConfigurator.Configure(); 
-			
+			XmlConfigurator.Configure();
+
 			container.RegisterType<ILog>(new InjectionFactory(c => LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType)));
 			container.RegisterType<IExceptionShield, ExceptionShield>();
 
 			TimeAsyncWorkerRegistrar.Register(container);
 			TimeWorkerRegistrar.Register(container);
 
-			container.RegisterType<IExecutor[]>(
-				new InjectionFactory(c => new[] { c.Resolve<IExecutor>(WorkerNames.TimeAsyncWorker), c.Resolve<IExecutor>(WorkerNames.TimeWorker) }));
+			container.RegisterType<IWorkerSandbox[]>(
+				new InjectionFactory(
+					c => new[]
+					{
+						c.Resolve<IWorkerSandbox>(WorkerNames.TimeAsyncWorker),
+						c.Resolve<IWorkerSandbox>(WorkerNames.TimeWorker)
+					}));
 			container.RegisterType<Host.Service.WindowsService>();
 		}
 	}

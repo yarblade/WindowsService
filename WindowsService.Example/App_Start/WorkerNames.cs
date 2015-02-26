@@ -2,8 +2,8 @@
 {
 	internal static class WorkerNames
 	{
-		public static string TimeAsyncWorker = "TimeAsyncWorker";
+		public const string TimeAsyncWorker = "TimeAsyncWorker";
 
-		public static string TimeWorker = "TimeWorker";
+		public const string TimeWorker = "TimeWorker";
 	}
 }

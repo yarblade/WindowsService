@@ -4,7 +4,7 @@ using System.ServiceProcess;
 using System.Threading;
 
 using WindowsService.Host.Exceptions;
-using WindowsService.Host.Executors;
+using WindowsService.Host.Workers;
 
 using log4net;
 
@@ -14,14 +14,14 @@ namespace WindowsService.Host.Service
 {
 	public class WindowsService : ServiceBase
 	{
-		private readonly IExecutor[] _executors;
+		private readonly IWorkerSandbox[] _sandboxes;
 		private readonly ILog _log;
 		private readonly IExceptionShield _shield;
 		private readonly CancellationTokenSource _tokenSource;
 
-		public WindowsService(IExecutor[] executors, IExceptionShield shield, ILog log)
+		public WindowsService(IWorkerSandbox[] sandboxes, IExceptionShield shield, ILog log)
 		{
-			_executors = executors;
+			_sandboxes = sandboxes;
 			_shield = shield;
 			_log = log;
 			_tokenSource = new CancellationTokenSource();
@@ -38,7 +38,7 @@ namespace WindowsService.Host.Service
 			}
 			else
 			{
-				Run(this);
+				ServiceBase.Run(this);
 			}
 		}
 
@@ -49,9 +49,9 @@ namespace WindowsService.Host.Service
 			_shield.Process(
 				() =>
 				{
-					foreach (var executor in _executors)
+					foreach (var sandbox in _sandboxes)
 					{
-						executor.Execute(_tokenSource.Token);
+						sandbox.StartExecution(_tokenSource.Token);
 					}
 				});
 
@@ -67,9 +67,9 @@ namespace WindowsService.Host.Service
 				{
 					_tokenSource.Cancel();
 
-					foreach (var executor in _executors.OfType<IDisposable>())
+					foreach (var sandbox in _sandboxes.OfType<IDisposable>())
 					{
-						executor.Dispose();
+						sandbox.Dispose();
 					}
 				});
 

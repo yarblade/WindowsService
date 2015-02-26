@@ -18,25 +18,24 @@ namespace WindowsService.Example.Registrars
 		public static void Register(IUnityContainer container)
 		{
 			container.RegisterType<ICityRepository, CityRepository>(WorkerNames.TimeWorker, new ContainerControlledLifetimeManager());
-
-			container.RegisterType<IWorker<Loading>>(
+			container.RegisterType<WorkerSettings>(
 				WorkerNames.TimeWorker,
 				new InjectionFactory(
-					c => new TimeWorker(c.Resolve<ICityRepository>(WorkerNames.TimeWorker), Settings.CitiesPerRequest, Settings.TimeWorkerFileName)));
-
-			SchedulerRegistrar.Register(container,
-				WorkerNames.TimeWorker,
-				new WorkerSettings
-				{
-					FailureInterval = TimeSpan.FromMinutes(1),
-					LoadingIntervals = new[]
+					c => new WorkerSettings
 					{
-						new LoadingInterval { Loading = Loading.None, Interval = TimeSpan.FromSeconds(10) },
-						new LoadingInterval { Loading = Loading.Medium, Interval = TimeSpan.FromSeconds(5) },
-						new LoadingInterval { Loading = Loading.Full, Interval = TimeSpan.FromSeconds(1) }
-					}
-				});
-			ScheduledExecutorRegistrar.Register<Loading>(container, WorkerNames.TimeWorker);
+						FailureInterval = TimeSpan.FromMinutes(1),
+						LoadingIntervals = new[]
+						{
+							new LoadingInterval { Loading = Loading.None, Interval = TimeSpan.FromSeconds(10) },
+							new LoadingInterval { Loading = Loading.Medium, Interval = TimeSpan.FromSeconds(5) },
+							new LoadingInterval { Loading = Loading.Full, Interval = TimeSpan.FromSeconds(1) }
+						}
+					}));
+
+			WorkerRegistrar.Register(
+				container,
+				WorkerNames.TimeWorker,
+				c => new TimeWorker(c.Resolve<ICityRepository>(WorkerNames.TimeWorker), Settings.CitiesPerRequest, Settings.TimeWorkerFileName));
 		}
 	}
 }
