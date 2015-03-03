@@ -4,9 +4,10 @@ using System.ServiceProcess;
 using System.Threading;
 
 using WindowsService.Host.Exceptions;
+using WindowsService.Host.Sandboxes;
 using WindowsService.Host.Workers;
 
-using log4net;
+using Common.Log;
 
 
 
@@ -14,8 +15,8 @@ namespace WindowsService.Host.Service
 {
 	public class WindowsService : ServiceBase
 	{
-		private readonly IWorkerSandbox[] _sandboxes;
 		private readonly ILog _log;
+		private readonly IWorkerSandbox[] _sandboxes;
 		private readonly IExceptionShield _shield;
 		private readonly CancellationTokenSource _tokenSource;
 
@@ -38,7 +39,7 @@ namespace WindowsService.Host.Service
 			}
 			else
 			{
-				ServiceBase.Run(this);
+				Run(this);
 			}
 		}
 

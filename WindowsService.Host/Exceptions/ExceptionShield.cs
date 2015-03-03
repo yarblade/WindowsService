@@ -2,7 +2,7 @@
 
 using WindowsService.Host.Extensions;
 
-using log4net;
+using Common.Log;
 
 
 

@@ -2,7 +2,7 @@
 
 
 
-namespace WindowsService.Host.Workers
+namespace WindowsService.Host.Sandboxes
 {
 	public interface IWorkerSandbox
 	{

@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace WindowsService.Host.Extensions
 {
-	internal static class ExceptionExtension
+	public static class ExceptionExtension
 	{
 		public static bool IsCritical(this Exception ex)
 		{
