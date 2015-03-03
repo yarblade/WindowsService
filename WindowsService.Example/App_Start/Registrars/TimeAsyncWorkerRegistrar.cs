@@ -1,7 +1,7 @@
 ﻿using WindowsService.Example.Repositories;
 using WindowsService.Example.Workers;
-using WindowsService.Host.Registrars;
-using WindowsService.Host.Settings;
+using WindowsService.Scheduling.Settings;
+using WindowsService.Scheduling.Unity;
 
 using Microsoft.Practices.Unity;
 

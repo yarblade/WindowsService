@@ -2,6 +2,7 @@
 
 using WindowsService.Example.Registrars;
 using WindowsService.Host.Exceptions;
+using WindowsService.Host.Sandboxes;
 using WindowsService.Host.Workers;
 
 using log4net;
@@ -22,7 +23,7 @@ namespace WindowsService.Example
 		{
 			XmlConfigurator.Configure();
 
-			container.RegisterType<ILog>(new InjectionFactory(c => LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType)));
+			container.RegisterType<Common.Log.ILog>(new InjectionFactory(c => LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType)));
 			container.RegisterType<IExceptionShield, ExceptionShield>();
 			container.RegisterType<ISettingsReader, ConfigurationSectionReader>();
 

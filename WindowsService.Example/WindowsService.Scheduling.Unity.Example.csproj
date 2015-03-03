@@ -7,8 +7,8 @@
     <ProjectGuid>{4888028B-4BE8-4C82-BFEA-8793EF107C8B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsService.Example</RootNamespace>
-    <AssemblyName>WindowsService.Example</AssemblyName>
+    <RootNamespace>WindowsService.Scheduling.Unity.Example</RootNamespace>
+    <AssemblyName>WindowsService.Scheduling.Unity.Example</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -38,6 +38,12 @@
     <AssemblyOriginatorKeyFile>..\yarblade.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Log">
+      <HintPath>..\packages\Common.Log.1.0.0.0\lib\net45\Common.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Log.log4net">
+      <HintPath>..\packages\Common.Log.log4net.1.0.0.0\lib\net45\Common.Log.log4net.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -93,6 +99,14 @@
     <ProjectReference Include="..\WindowsService.Host\WindowsService.Host.csproj">
       <Project>{2762c26e-2023-495e-8979-669ae5b41d01}</Project>
       <Name>WindowsService.Host</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WindowsService.Scheduling.Unity\WindowsService.Scheduling.Unity.csproj">
+      <Project>{cd8945b1-33ee-487f-83e1-83fe8a42a251}</Project>
+      <Name>WindowsService.Scheduling.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WindowsService.Scheduling\WindowsService.Scheduling.csproj">
+      <Project>{1cb7dd95-f1ba-4ea4-88bd-aedf11d9e44e}</Project>
+      <Name>WindowsService.Scheduling</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

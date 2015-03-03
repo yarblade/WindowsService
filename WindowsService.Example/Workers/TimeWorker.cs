@@ -6,8 +6,8 @@ using System.Threading;
 
 using WindowsService.Example.Entities;
 using WindowsService.Example.Repositories;
-using WindowsService.Host.Loading;
 using WindowsService.Host.Workers;
+using WindowsService.Scheduling.Loading;
 
 using Newtonsoft.Json;
 
