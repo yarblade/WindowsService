@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 using WindowsService.Host.Extensions;
 using WindowsService.Host.Sandboxes;
+using WindowsService.Host.Workers;
 using WindowsService.Scheduling.Schedulers;
-using WindowsService.Scheduling.WorkerRunners;
 
 using Common.Log;
 
@@ -13,7 +13,7 @@ using Common.Log;
 
 namespace WindowsService.Scheduling.Sandboxes
 {
-	public class ScheduledWorkerSandbox<T> : IWorkerSandbox, IDisposable
+	public class ScheduledWorkerSandbox<T> : IWorkerSandbox
 	{
 		private readonly IWorkerRunner<T> _workerRunner;
 		private readonly ILog _log;
@@ -45,11 +45,11 @@ namespace WindowsService.Scheduling.Sandboxes
 			}
 		}
 
-		public void StartExecution(CancellationToken token)
+		public void StartWorkerExecution(CancellationToken token)
 		{
 			var interval = _scheduler.GetInitialInterval();
 
-			_timer = new Timer(_ => ExecuteOnlyOneWorkerAtSameTime(token), null, TimeSpan.Zero, interval);
+			_timer = new Timer(_ => ExecuteOnlyOneWorkerAtSameTime(token).Wait(CancellationToken.None), null, TimeSpan.Zero, interval);
 		}
 
 		private async Task ExecuteOnlyOneWorkerAtSameTime(CancellationToken token)
@@ -88,18 +88,6 @@ namespace WindowsService.Scheduling.Sandboxes
 			catch (OperationCanceledException ex)
 			{
 				_log.Info(ex.Message);
-			}
-			catch (AggregateException ex)
-			{
-				ex.Flatten().Handle(
-					x =>
-					{
-						_log.Error("Unexpected exception while scheduled execution: " + x);
-
-						return !ex.IsCritical();
-					});
-
-				OnFailure();
 			}
 			catch (Exception ex)
 			{

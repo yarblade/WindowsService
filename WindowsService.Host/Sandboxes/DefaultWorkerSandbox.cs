@@ -10,42 +10,39 @@ namespace WindowsService.Host.Sandboxes
 {
 	public class DefaultWorkerSandbox<T> : IWorkerSandbox
 	{
-		private readonly IAsyncWorker<T> _asyncWorker;
 		private readonly TimeSpan _interval;
-		private readonly IWorker<T> _worker;
-		
-		public DefaultWorkerSandbox(IWorker<T> worker, TimeSpan interval)
+		private readonly string _workerName;
+		private readonly IWorkerRunner<T> _workerRunner;
+		private Task _task;
+
+		public DefaultWorkerSandbox(IWorkerRunner<T> workerRunner, string workerName, TimeSpan interval)
 		{
+			_workerRunner = workerRunner;
+			_workerName = workerName;
 			_interval = interval;
-			_worker = worker;
 		}
 
-		public DefaultWorkerSandbox(IAsyncWorker<T> asyncWorker, TimeSpan interval)
+		public void StartWorkerExecution(CancellationToken token)
 		{
-			_interval = interval;
-			_asyncWorker = asyncWorker;
-		}
-
-		public void StartExecution(CancellationToken token)
-		{
-			Task.Run(() => ExecuteAsync(token), CancellationToken.None);
+			_task = Task.Run(() => ExecuteAsync(token), CancellationToken.None);
 		}
 
 		private async void ExecuteAsync(CancellationToken token)
 		{
 			while (!token.IsCancellationRequested)
 			{
-				if (_worker != null)
-				{
-					_worker.DoWork(token);
-				}
-
-				if (_asyncWorker != null)
-				{
-					await _asyncWorker.DoWork(token);
-				}
+				await _workerRunner.RunAsync(_workerName, token);
 
 				await Task.Delay(_interval, token);
+			}
+		}
+
+		public void Dispose()
+		{
+			if (_task != null)
+			{
+				_task.Wait();
+				_task = null;
 			}
 		}
 	}

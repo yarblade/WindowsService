@@ -1,5 +1,6 @@
 ﻿using WindowsService.Scheduling.Settings;
 using WindowsService.Scheduling.Unity.Example.Repositories;
+using WindowsService.Scheduling.Unity.Example.Web;
 using WindowsService.Scheduling.Unity.Example.Workers;
 
 using Microsoft.Practices.Unity;
@@ -19,11 +20,14 @@ namespace WindowsService.Scheduling.Unity.Example.Registrars
 				WorkerNames.TimeWorker,
 				new InjectionFactory(c => c.Resolve<ISettingsReader>().Read<WorkerSettings>("timeWorkerSettings")));
 
-
 			WorkerRegistrar.Register(
 				container,
 				WorkerNames.TimeWorker,
-				c => new TimeWorker(c.Resolve<ICityRepository>(WorkerNames.TimeWorker), Settings.CitiesPerRequest, Settings.TimeWorkerFileName));
+				c => new TimeWorker(
+					c.Resolve<ICityRepository>(WorkerNames.TimeWorker),
+					c.Resolve<IHttpClient>(),
+					Settings.CitiesPerRequest,
+					Settings.TimeWorkerFileName));
 		}
 	}
 }

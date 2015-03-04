@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 
 
-namespace WindowsService.Scheduling.WorkerRunners
+namespace WindowsService.Host.Workers
 {
 	public interface IWorkerRunner<T>
 	{

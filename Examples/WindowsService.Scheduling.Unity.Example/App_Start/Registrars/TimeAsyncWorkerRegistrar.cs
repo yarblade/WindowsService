@@ -1,5 +1,6 @@
 ﻿using WindowsService.Scheduling.Settings;
 using WindowsService.Scheduling.Unity.Example.Repositories;
+using WindowsService.Scheduling.Unity.Example.Web;
 using WindowsService.Scheduling.Unity.Example.Workers;
 
 using Microsoft.Practices.Unity;
@@ -22,7 +23,11 @@ namespace WindowsService.Scheduling.Unity.Example.Registrars
 			WorkerRegistrar.Register(
 				container,
 				WorkerNames.TimeAsyncWorker,
-				c => new TimeAsyncWorker(c.Resolve<ICityRepository>(WorkerNames.TimeAsyncWorker), Settings.CitiesPerRequest, Settings.TimeAsyncWorkerFileName));
+				c => new TimeAsyncWorker(
+					c.Resolve<ICityRepository>(WorkerNames.TimeAsyncWorker),
+					c.Resolve<IHttpClient>(),
+					Settings.CitiesPerRequest,
+					Settings.TimeAsyncWorkerFileName));
 		}
 	}
 }

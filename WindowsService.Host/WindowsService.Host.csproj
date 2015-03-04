@@ -58,8 +58,11 @@
     <Compile Include="Service\WindowsService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Workers\AsyncWorkerAdapter.cs" />
+    <Compile Include="Workers\DefaultWorkerRunner.cs" />
     <Compile Include="Workers\IAsyncWorker.cs" />
     <Compile Include="Workers\IWorker.cs" />
+    <Compile Include="Workers\IWorkerRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\yarblade.snk">

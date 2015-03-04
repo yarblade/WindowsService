@@ -5,7 +5,6 @@ using WindowsService.Host.Workers;
 using WindowsService.Scheduling.Sandboxes;
 using WindowsService.Scheduling.Schedulers;
 using WindowsService.Scheduling.Settings;
-using WindowsService.Scheduling.Unity.WorkerRunners;
 
 using Common.Log;
 
@@ -19,7 +18,7 @@ namespace WindowsService.Scheduling.Unity
 	{
 		public static void Register<T>(IUnityContainer container, string workerName, Func<IUnityContainer, IWorker<T>> resolver)
 		{
-			container.RegisterType<IWorker<T>>(workerName, new InjectionFactory(resolver));
+			container.RegisterType<IAsyncWorker<T>>(workerName, new InjectionFactory(c => new AsyncWorkerAdapter<T>(resolver(c))));
 
 			RegisterScheduler<T>(container, workerName);
 			RegisterSandbox<T>(container, workerName);
@@ -43,7 +42,7 @@ namespace WindowsService.Scheduling.Unity
 
 		private static void RegisterScheduler<T>(IUnityContainer container, string workerName)
 		{
-			container.RegisterType<IScheduler<Loading.Loading>>(workerName, new InjectionFactory(c => new Scheduler(c.Resolve<WorkerSettings>(workerName))));
+			container.RegisterType<IScheduler<T>>(workerName, new InjectionFactory(c => new Scheduler(c.Resolve<WorkerSettings>(workerName))));
 		}
 	}
 }

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.ServiceProcess;
 using System.Threading;
 
 using WindowsService.Host.Exceptions;
 using WindowsService.Host.Sandboxes;
-using WindowsService.Host.Workers;
 
 using Common.Log;
 
@@ -52,7 +50,7 @@ namespace WindowsService.Host.Service
 				{
 					foreach (var sandbox in _sandboxes)
 					{
-						sandbox.StartExecution(_tokenSource.Token);
+						sandbox.StartWorkerExecution(_tokenSource.Token);
 					}
 				});
 
@@ -68,7 +66,7 @@ namespace WindowsService.Host.Service
 				{
 					_tokenSource.Cancel();
 
-					foreach (var sandbox in _sandboxes.OfType<IDisposable>())
+					foreach (var sandbox in _sandboxes)
 					{
 						sandbox.Dispose();
 					}

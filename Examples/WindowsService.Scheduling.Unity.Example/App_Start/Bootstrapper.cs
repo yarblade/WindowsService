@@ -3,6 +3,9 @@
 using WindowsService.Host.Exceptions;
 using WindowsService.Host.Sandboxes;
 using WindowsService.Scheduling.Unity.Example.Registrars;
+using WindowsService.Scheduling.Unity.Example.Web;
+
+using Common.Log.log4net;
 
 using log4net;
 using log4net.Config;
@@ -22,9 +25,10 @@ namespace WindowsService.Scheduling.Unity.Example
 		{
 			XmlConfigurator.Configure();
 
-			container.RegisterType<Common.Log.ILog>(new InjectionFactory(c => LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType)));
+			container.RegisterType<Common.Log.ILog>(new InjectionFactory(c => new LogAdapter(LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType))));
 			container.RegisterType<IExceptionShield, ExceptionShield>();
 			container.RegisterType<ISettingsReader, ConfigurationSectionReader>();
+			container.RegisterType<IHttpClient, HttpClient>();
 
 			TimeAsyncWorkerRegistrar.Register(container);
 			TimeWorkerRegistrar.Register(container);

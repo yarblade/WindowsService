@@ -7,8 +7,8 @@ namespace WindowsService.Scheduling.Unity.Example.Entities
 {
 	internal class UtcTimeWithClocks
 	{
-		public DateTime Time { get; set; }
-
+		public long Time { get; set; }
+		public DateTime DateTime { get { return new DateTime(Time); } }
 		public IDictionary<int, CityClock> Clocks { get; set; }
 	}
 }

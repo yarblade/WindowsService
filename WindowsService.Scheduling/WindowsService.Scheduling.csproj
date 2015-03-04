@@ -54,8 +54,6 @@
     <Compile Include="Schedulers\Scheduler.cs" />
     <Compile Include="Settings\LoadingInterval.cs" />
     <Compile Include="Settings\WorkerSettings.cs" />
-    <Compile Include="WorkerRunners\DefaultWorkerRunner.cs" />
-    <Compile Include="WorkerRunners\IWorkerRunner.cs" />
     <Compile Include="Loading\Loading.cs" />
     <Compile Include="Loading\LoadingCalculator.cs" />
   </ItemGroup>
@@ -71,6 +69,7 @@
       <Name>WindowsService.Host</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

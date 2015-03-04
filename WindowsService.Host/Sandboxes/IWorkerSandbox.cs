@@ -1,11 +1,12 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 
 
 namespace WindowsService.Host.Sandboxes
 {
-	public interface IWorkerSandbox
+	public interface IWorkerSandbox : IDisposable
 	{
-		void StartExecution(CancellationToken token);
+		void StartWorkerExecution(CancellationToken token);
 	}
 }
