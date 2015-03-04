@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using WindowsService.Example.Entities;
-using WindowsService.Example.Repositories;
 using WindowsService.Host.Workers;
 using WindowsService.Scheduling.Loading;
+using WindowsService.Scheduling.Unity.Example.Entities;
+using WindowsService.Scheduling.Unity.Example.Repositories;
 
 using Newtonsoft.Json;
 
 
 
-namespace WindowsService.Example.Workers
+namespace WindowsService.Scheduling.Unity.Example.Workers
 {
-	internal class TimeAsyncWorker : IAsyncWorker<Loading>
+	internal class TimeAsyncWorker : IAsyncWorker<Loading.Loading>
 	{
 		private readonly int _citiesPerRequest;
 		private readonly ICityRepository _cityRepository;
@@ -29,7 +29,7 @@ namespace WindowsService.Example.Workers
 			_fileName = fileName;
 		}
 
-		public async Task<Loading> DoWork(CancellationToken token)
+		public async Task<Loading.Loading> DoWork(CancellationToken token)
 		{
 			var ids = _cityRepository.GetCityIds(_citiesPerRequest);
 			var processed = 0;

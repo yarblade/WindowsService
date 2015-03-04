@@ -11,6 +11,21 @@
     <AssemblyName>WindowsService.Scheduling.Unity.Example</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,7 +50,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\yarblade.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\yarblade.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Log">
@@ -89,25 +104,42 @@
     <Compile Include="Workers\TimeAsyncWorker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\yarblade.snk">
+    <None Include="..\..\yarblade.snk">
       <Link>yarblade.snk</Link>
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WindowsService.Host\WindowsService.Host.csproj">
+    <ProjectReference Include="..\..\WindowsService.Host\WindowsService.Host.csproj">
       <Project>{2762c26e-2023-495e-8979-669ae5b41d01}</Project>
       <Name>WindowsService.Host</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WindowsService.Scheduling.Unity\WindowsService.Scheduling.Unity.csproj">
+    <ProjectReference Include="..\..\WindowsService.Scheduling.Unity\WindowsService.Scheduling.Unity.csproj">
       <Project>{cd8945b1-33ee-487f-83e1-83fe8a42a251}</Project>
       <Name>WindowsService.Scheduling.Unity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WindowsService.Scheduling\WindowsService.Scheduling.csproj">
+    <ProjectReference Include="..\..\WindowsService.Scheduling\WindowsService.Scheduling.csproj">
       <Project>{1cb7dd95-f1ba-4ea4-88bd-aedf11d9e44e}</Project>
       <Name>WindowsService.Scheduling</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

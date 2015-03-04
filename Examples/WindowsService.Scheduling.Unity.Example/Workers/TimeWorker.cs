@@ -4,18 +4,18 @@ using System.Net;
 using System.Text;
 using System.Threading;
 
-using WindowsService.Example.Entities;
-using WindowsService.Example.Repositories;
 using WindowsService.Host.Workers;
 using WindowsService.Scheduling.Loading;
+using WindowsService.Scheduling.Unity.Example.Entities;
+using WindowsService.Scheduling.Unity.Example.Repositories;
 
 using Newtonsoft.Json;
 
 
 
-namespace WindowsService.Example.Workers
+namespace WindowsService.Scheduling.Unity.Example.Workers
 {
-	internal class TimeWorker : IWorker<Loading>
+	internal class TimeWorker : IWorker<Loading.Loading>
 	{
 		private readonly ICityRepository _cityRepository;
 		private readonly int _citiesPerRequest;
@@ -28,7 +28,7 @@ namespace WindowsService.Example.Workers
 			_fileName = fileName;
 		}
 
-		public Loading DoWork(CancellationToken token)
+		public Loading.Loading DoWork(CancellationToken token)
 		{
 			token.ThrowIfCancellationRequested();
 

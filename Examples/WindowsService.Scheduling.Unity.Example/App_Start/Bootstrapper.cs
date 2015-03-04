@@ -1,9 +1,8 @@
 ﻿using System.Reflection;
 
-using WindowsService.Example.Registrars;
 using WindowsService.Host.Exceptions;
 using WindowsService.Host.Sandboxes;
-using WindowsService.Host.Workers;
+using WindowsService.Scheduling.Unity.Example.Registrars;
 
 using log4net;
 using log4net.Config;
@@ -15,7 +14,7 @@ using SettingsReader.Readers;
 
 
 
-namespace WindowsService.Example
+namespace WindowsService.Scheduling.Unity.Example
 {
 	internal static class Bootstrapper
 	{

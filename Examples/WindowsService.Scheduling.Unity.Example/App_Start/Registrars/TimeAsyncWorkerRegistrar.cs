@@ -1,7 +1,6 @@
-﻿using WindowsService.Example.Repositories;
-using WindowsService.Example.Workers;
-using WindowsService.Scheduling.Settings;
-using WindowsService.Scheduling.Unity;
+﻿using WindowsService.Scheduling.Settings;
+using WindowsService.Scheduling.Unity.Example.Repositories;
+using WindowsService.Scheduling.Unity.Example.Workers;
 
 using Microsoft.Practices.Unity;
 
@@ -9,7 +8,7 @@ using SettingsReader;
 
 
 
-namespace WindowsService.Example.Registrars
+namespace WindowsService.Scheduling.Unity.Example.Registrars
 {
 	internal static class TimeAsyncWorkerRegistrar
 	{

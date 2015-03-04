@@ -2,7 +2,7 @@
 
 
 
-namespace WindowsService.Example
+namespace WindowsService.Scheduling.Unity.Example
 {
 	internal static class Settings
 	{
