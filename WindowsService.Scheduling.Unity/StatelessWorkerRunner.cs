@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-using WindowsService.Host.Workers;
+using WindowsService.Core.Workers;
 
 using Microsoft.Practices.Unity;
 

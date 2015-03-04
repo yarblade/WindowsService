@@ -113,9 +113,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WindowsService.Host\WindowsService.Host.csproj">
+    <ProjectReference Include="..\..\WindowsService.Core\WindowsService.Core.csproj">
       <Project>{2762c26e-2023-495e-8979-669ae5b41d01}</Project>
-      <Name>WindowsService.Host</Name>
+      <Name>WindowsService.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\WindowsService.Scheduling.Unity\WindowsService.Scheduling.Unity.csproj">
       <Project>{cd8945b1-33ee-487f-83e1-83fe8a42a251}</Project>

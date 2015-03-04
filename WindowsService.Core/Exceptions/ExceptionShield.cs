@@ -1,12 +1,12 @@
 ﻿using System;
 
-using WindowsService.Host.Extensions;
+using WindowsService.Core.Extensions;
 
 using Common.Log;
 
 
 
-namespace WindowsService.Host.Exceptions
+namespace WindowsService.Core.Exceptions
 {
 	public class ExceptionShield : IExceptionShield
 	{

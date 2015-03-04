@@ -7,8 +7,8 @@
     <ProjectGuid>{2762C26E-2023-495E-8979-669AE5B41D01}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsService.Host</RootNamespace>
-    <AssemblyName>WindowsService.Host</AssemblyName>
+    <RootNamespace>WindowsService.Core</RootNamespace>
+    <AssemblyName>WindowsService.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

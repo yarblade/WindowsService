@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 
-using WindowsService.Host.Exceptions;
-using WindowsService.Host.Sandboxes;
+using WindowsService.Core.Exceptions;
+using WindowsService.Core.Sandboxes;
 using WindowsService.Scheduling.Unity.Example.Registrars;
 using WindowsService.Scheduling.Unity.Example.Web;
 
@@ -40,7 +40,7 @@ namespace WindowsService.Scheduling.Unity.Example
 						c.Resolve<IWorkerSandbox>(WorkerNames.TimeAsyncWorker),
 						c.Resolve<IWorkerSandbox>(WorkerNames.TimeWorker)
 					}));
-			container.RegisterType<Host.Service.WindowsService>();
+			container.RegisterType<Core.Service.WindowsService>();
 		}
 	}
 }

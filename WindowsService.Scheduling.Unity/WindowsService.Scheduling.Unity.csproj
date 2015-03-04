@@ -62,9 +62,9 @@
     <Compile Include="WorkerRegistrar.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WindowsService.Host\WindowsService.Host.csproj">
+    <ProjectReference Include="..\WindowsService.Core\WindowsService.Core.csproj">
       <Project>{2762c26e-2023-495e-8979-669ae5b41d01}</Project>
-      <Name>WindowsService.Host</Name>
+      <Name>WindowsService.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\WindowsService.Scheduling\WindowsService.Scheduling.csproj">
       <Project>{1cb7dd95-f1ba-4ea4-88bd-aedf11d9e44e}</Project>

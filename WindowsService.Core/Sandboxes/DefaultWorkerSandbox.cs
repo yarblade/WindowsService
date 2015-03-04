@@ -2,11 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-using WindowsService.Host.Workers;
+using WindowsService.Core.Workers;
 
 
 
-namespace WindowsService.Host.Sandboxes
+namespace WindowsService.Core.Sandboxes
 {
 	public class DefaultWorkerSandbox<T> : IWorkerSandbox
 	{

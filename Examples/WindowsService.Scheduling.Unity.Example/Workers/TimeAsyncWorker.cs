@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using WindowsService.Host.Workers;
+using WindowsService.Core.Workers;
 using WindowsService.Scheduling.Loading;
 using WindowsService.Scheduling.Unity.Example.Entities;
 using WindowsService.Scheduling.Unity.Example.Repositories;

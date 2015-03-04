@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService.Host", "WindowsService.Host\WindowsService.Host.csproj", "{2762C26E-2023-495E-8979-669AE5B41D01}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService.Scheduling", "WindowsService.Scheduling\WindowsService.Scheduling.csproj", "{1CB7DD95-F1BA-4EA4-88BD-AEDF11D9E44E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService.Scheduling.Unity", "WindowsService.Scheduling.Unity\WindowsService.Scheduling.Unity.csproj", "{CD8945B1-33EE-487F-83E1-83FE8A42A251}"
@@ -13,16 +11,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{CD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService.Scheduling.Unity.Example", "Examples\WindowsService.Scheduling.Unity.Example\WindowsService.Scheduling.Unity.Example.csproj", "{4888028B-4BE8-4C82-BFEA-8793EF107C8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService.Core", "WindowsService.Core\WindowsService.Core.csproj", "{2762C26E-2023-495E-8979-669AE5B41D01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2762C26E-2023-495E-8979-669AE5B41D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2762C26E-2023-495E-8979-669AE5B41D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2762C26E-2023-495E-8979-669AE5B41D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2762C26E-2023-495E-8979-669AE5B41D01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1CB7DD95-F1BA-4EA4-88BD-AEDF11D9E44E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1CB7DD95-F1BA-4EA4-88BD-AEDF11D9E44E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CB7DD95-F1BA-4EA4-88BD-AEDF11D9E44E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,6 +31,10 @@ Global
 		{4888028B-4BE8-4C82-BFEA-8793EF107C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4888028B-4BE8-4C82-BFEA-8793EF107C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4888028B-4BE8-4C82-BFEA-8793EF107C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2762C26E-2023-495E-8979-669AE5B41D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2762C26E-2023-495E-8979-669AE5B41D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2762C26E-2023-495E-8979-669AE5B41D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2762C26E-2023-495E-8979-669AE5B41D01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

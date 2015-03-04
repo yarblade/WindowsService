@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 
 
-namespace WindowsService.Host.Workers
+namespace WindowsService.Core.Workers
 {
 	public class AsyncWorkerAdapter<T> : IAsyncWorker<T>
 	{

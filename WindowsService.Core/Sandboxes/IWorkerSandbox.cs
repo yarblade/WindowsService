@@ -3,7 +3,7 @@ using System.Threading;
 
 
 
-namespace WindowsService.Host.Sandboxes
+namespace WindowsService.Core.Sandboxes
 {
 	public interface IWorkerSandbox : IDisposable
 	{

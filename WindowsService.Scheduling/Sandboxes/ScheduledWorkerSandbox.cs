@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-using WindowsService.Host.Extensions;
-using WindowsService.Host.Sandboxes;
-using WindowsService.Host.Workers;
+using WindowsService.Core.Extensions;
+using WindowsService.Core.Sandboxes;
+using WindowsService.Core.Workers;
 using WindowsService.Scheduling.Schedulers;
 
 using Common.Log;

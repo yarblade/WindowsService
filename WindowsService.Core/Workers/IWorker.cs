@@ -2,7 +2,7 @@
 
 
 
-namespace WindowsService.Host.Workers
+namespace WindowsService.Core.Workers
 {
 	public interface IWorker<out T>
 	{

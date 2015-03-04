@@ -12,7 +12,7 @@ namespace WindowsService.Scheduling.Unity.Example
 			{
 				Bootstrapper.Initialize(container);
 
-				container.Resolve<Host.Service.WindowsService>().Run();
+				container.Resolve<Core.Service.WindowsService>().Run();
 			}
 		}
 	}

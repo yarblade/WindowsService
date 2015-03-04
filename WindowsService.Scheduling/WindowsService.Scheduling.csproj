@@ -64,12 +64,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WindowsService.Host\WindowsService.Host.csproj">
+    <ProjectReference Include="..\WindowsService.Core\WindowsService.Core.csproj">
       <Project>{2762c26e-2023-495e-8979-669ae5b41d01}</Project>
-      <Name>WindowsService.Host</Name>
+      <Name>WindowsService.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

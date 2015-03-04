@@ -2,14 +2,14 @@
 using System.ServiceProcess;
 using System.Threading;
 
-using WindowsService.Host.Exceptions;
-using WindowsService.Host.Sandboxes;
+using WindowsService.Core.Exceptions;
+using WindowsService.Core.Sandboxes;
 
 using Common.Log;
 
 
 
-namespace WindowsService.Host.Service
+namespace WindowsService.Core.Service
 {
 	public class WindowsService : ServiceBase
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 
-using WindowsService.Host.Sandboxes;
-using WindowsService.Host.Workers;
+using WindowsService.Core.Sandboxes;
+using WindowsService.Core.Workers;
 using WindowsService.Scheduling.Sandboxes;
 using WindowsService.Scheduling.Schedulers;
 using WindowsService.Scheduling.Settings;
