@@ -3,16 +3,16 @@ using System.IO;
 using System.Threading;
 
 using WindowsService.Core.Workers;
+using WindowsService.Scheduling.Example.Entities;
+using WindowsService.Scheduling.Example.Repositories;
+using WindowsService.Scheduling.Example.Web;
 using WindowsService.Scheduling.Loading;
-using WindowsService.Scheduling.Unity.Example.Entities;
-using WindowsService.Scheduling.Unity.Example.Repositories;
-using WindowsService.Scheduling.Unity.Example.Web;
 
 using Newtonsoft.Json;
 
 
 
-namespace WindowsService.Scheduling.Unity.Example.Workers
+namespace WindowsService.Scheduling.Example.Workers
 {
 	internal class TimeWorker : IWorker<Loading.Loading>
 	{

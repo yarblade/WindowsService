@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 
 
-namespace WindowsService.Scheduling.Unity.Example.Web
+namespace WindowsService.Scheduling.Example.Web
 {
 	public class HttpClient : IHttpClient
 	{

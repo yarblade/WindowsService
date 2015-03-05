@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 
 
-namespace WindowsService.Scheduling.Unity.Example.Entities
+namespace WindowsService.Scheduling.Example.Entities
 {
 	internal class UtcTimeWithClocks
 	{

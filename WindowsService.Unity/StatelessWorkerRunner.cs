@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 
 
-namespace WindowsService.Scheduling.Unity
+namespace WindowsService.Unity
 {
 	public class StatelessWorkerRunner<T> : IWorkerRunner<T>
 	{

@@ -1,4 +1,4 @@
-﻿namespace WindowsService.Scheduling.Unity.Example.Repositories
+﻿namespace WindowsService.Scheduling.Example.Repositories
 {
 	internal interface ICityRepository
 	{

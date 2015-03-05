@@ -5,6 +5,7 @@ using WindowsService.Core.Workers;
 using WindowsService.Scheduling.Sandboxes;
 using WindowsService.Scheduling.Schedulers;
 using WindowsService.Scheduling.Settings;
+using WindowsService.Unity;
 
 using Common.Log;
 
@@ -12,7 +13,7 @@ using Microsoft.Practices.Unity;
 
 
 
-namespace WindowsService.Scheduling.Unity
+namespace WindowsService.Scheduling.Unity.Registrars
 {
 	public static class WorkerRegistrar
 	{

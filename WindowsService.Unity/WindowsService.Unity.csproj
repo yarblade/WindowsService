@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CD8945B1-33EE-487F-83E1-83FE8A42A251}</ProjectGuid>
+    <ProjectGuid>{8670357B-B890-4463-89E1-44A9AD1BB68C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsService.Scheduling.Unity</RootNamespace>
-    <AssemblyName>WindowsService.Scheduling.Unity</AssemblyName>
+    <RootNamespace>WindowsService.Unity</RootNamespace>
+    <AssemblyName>WindowsService.Unity</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,12 +33,9 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\yarblade.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>yarblade.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Log">
-      <HintPath>..\packages\Common.Log.1.0.0.0\lib\net45\Common.Log.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
@@ -59,23 +56,16 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatelessWorkerRunner.cs" />
-    <Compile Include="WorkerRegistrar.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="yarblade.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WindowsService.Core\WindowsService.Core.csproj">
       <Project>{2762c26e-2023-495e-8979-669ae5b41d01}</Project>
       <Name>WindowsService.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WindowsService.Scheduling\WindowsService.Scheduling.csproj">
-      <Project>{1cb7dd95-f1ba-4ea4-88bd-aedf11d9e44e}</Project>
-      <Name>WindowsService.Scheduling</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\yarblade.snk">
-      <Link>yarblade.snk</Link>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

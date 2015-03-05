@@ -1,4 +1,4 @@
-﻿namespace WindowsService.Scheduling.Unity.Example
+﻿namespace WindowsService.Scheduling.Example
 {
 	internal static class WorkerNames
 	{

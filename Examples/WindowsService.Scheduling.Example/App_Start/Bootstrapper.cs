@@ -2,8 +2,8 @@
 
 using WindowsService.Core.Exceptions;
 using WindowsService.Core.Sandboxes;
-using WindowsService.Scheduling.Unity.Example.Registrars;
-using WindowsService.Scheduling.Unity.Example.Web;
+using WindowsService.Scheduling.Example.Registrars;
+using WindowsService.Scheduling.Example.Web;
 
 using Common.Log.log4net;
 
@@ -17,7 +17,7 @@ using SettingsReader.Readers;
 
 
 
-namespace WindowsService.Scheduling.Unity.Example
+namespace WindowsService.Scheduling.Example
 {
 	internal static class Bootstrapper
 	{
