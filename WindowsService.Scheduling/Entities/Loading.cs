@@ -1,4 +1,4 @@
-﻿namespace WindowsService.Scheduling.Loading
+﻿namespace WindowsService.Scheduling.Entities
 {
 	public enum Loading
 	{

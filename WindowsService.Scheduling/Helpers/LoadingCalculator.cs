@@ -1,4 +1,8 @@
-﻿namespace WindowsService.Scheduling.Loading
+﻿using WindowsService.Scheduling.Entities;
+
+
+
+namespace WindowsService.Scheduling.Helpers
 {
 	public static class LoadingCalculator
 	{

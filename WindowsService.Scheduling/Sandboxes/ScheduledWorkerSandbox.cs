@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using WindowsService.Core.Extensions;
 using WindowsService.Core.Sandboxes;
+using WindowsService.Core.Timers;
 using WindowsService.Core.Workers;
 using WindowsService.Scheduling.Schedulers;
 
@@ -15,74 +16,42 @@ namespace WindowsService.Scheduling.Sandboxes
 {
 	public class ScheduledWorkerSandbox<T> : IWorkerSandbox
 	{
-		private readonly IWorkerRunner<T> _workerRunner;
+		private readonly TaskCompletionSource<bool> _completionSource;
 		private readonly ILog _log;
 		private readonly IScheduler<T> _scheduler;
+		private readonly ITimer _timer;
 		private readonly string _workerName;
-		private readonly SemaphoreSlim _semaphore;
-		private Timer _timer;
-		
-		public ScheduledWorkerSandbox(string workerName, IWorkerRunner<T> workerRunner, IScheduler<T> scheduler, ILog log)
+		private readonly IWorkerRunner<T> _workerRunner;
+
+		public ScheduledWorkerSandbox(string workerName, ITimer timer, IWorkerRunner<T> workerRunner, IScheduler<T> scheduler, ILog log)
 		{
 			_workerName = workerName;
+			_timer = timer;
 			_workerRunner = workerRunner;
 			_scheduler = scheduler;
 			_log = log;
-			_semaphore = new SemaphoreSlim(initialCount: 1);
+			_completionSource = new TaskCompletionSource<bool>();
 		}
 
-		public void Dispose()
-		{
-			if (_timer != null)
-			{
-				var autoEvent = new AutoResetEvent(false);
-				if (_timer.Dispose(autoEvent))
-				{
-					autoEvent.WaitOne();
-				}
-
-				_timer = null;
-			}
-		}
+		public Task Completion { get { return _completionSource.Task; } }
 
 		public void StartWorkerExecution(CancellationToken token)
 		{
-			var interval = _scheduler.GetInitialInterval();
-
-			_timer = new Timer(_ => ExecuteOnlyOneWorkerAtSameTime(token).Wait(CancellationToken.None), null, TimeSpan.Zero, interval);
-		}
-
-		private async Task ExecuteOnlyOneWorkerAtSameTime(CancellationToken token)
-		{
-			if (token.IsCancellationRequested)
-			{
-				return;
-			}
-
-			var lockTaken = false;
-			try
-			{
-				lockTaken = _semaphore.Wait(0);
-				if (lockTaken)
-				{
-					await ExecuteAsync(token);
-				}
-			}
-			finally
-			{
-				if (lockTaken)
-				{
-					_semaphore.Release();
-				}
-			}
+			_timer.Start(x => ExecuteAsync(token));
 		}
 
 		private async Task ExecuteAsync(CancellationToken token)
 		{
+			if (token.IsCancellationRequested)
+			{
+				StopExecution();
+				return;
+			}
+
 			try
 			{
 				var loading = await _workerRunner.RunAsync(_workerName, token);
-				
+
 				ChangeTimer(loading);
 			}
 			catch (OperationCanceledException ex)
@@ -97,9 +66,20 @@ namespace WindowsService.Scheduling.Sandboxes
 				}
 
 				_log.Error("Unexpected exception while scheduled execution: " + ex);
-			
+
 				OnFailure();
 			}
+
+			if (token.IsCancellationRequested)
+			{
+				StopExecution();
+			}
+		}
+
+		private void StopExecution()
+		{
+			_timer.Stop();
+			_completionSource.TrySetResult(true);
 		}
 
 		private void ChangeTimer(T loading)
@@ -110,7 +90,7 @@ namespace WindowsService.Scheduling.Sandboxes
 
 				_log.Info("Loading of '{0}' worker changed to {1}. New interval: {2}", _workerName, loading, interval);
 
-				_timer.Change(TimeSpan.Zero, interval);
+				_timer.Change(interval);
 			}
 		}
 
@@ -120,7 +100,7 @@ namespace WindowsService.Scheduling.Sandboxes
 
 			_log.Info("Worker '{0}' was failed. New interval: {1}", _workerName, interval);
 
-			_timer.Change(TimeSpan.Zero, interval);
+			_timer.Change(interval);
 		}
 	}
 }

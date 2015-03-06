@@ -54,8 +54,8 @@
     <Compile Include="Schedulers\Scheduler.cs" />
     <Compile Include="Settings\LoadingInterval.cs" />
     <Compile Include="Settings\WorkerSettings.cs" />
-    <Compile Include="Loading\Loading.cs" />
-    <Compile Include="Loading\LoadingCalculator.cs" />
+    <Compile Include="Entities\Loading.cs" />
+    <Compile Include="Helpers\LoadingCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\yarblade.snk">
@@ -68,6 +68,9 @@
       <Project>{2762c26e-2023-495e-8979-669ae5b41d01}</Project>
       <Name>WindowsService.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Timers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

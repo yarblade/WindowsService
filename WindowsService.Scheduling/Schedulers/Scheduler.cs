@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Linq;
 
+using WindowsService.Scheduling.Entities;
 using WindowsService.Scheduling.Settings;
 
 
 
 namespace WindowsService.Scheduling.Schedulers
 {
-	public class Scheduler : IScheduler<Loading.Loading>
+	public class Scheduler : IScheduler<Loading>
 	{
 		private readonly WorkerSettings _workerSettings;
-		private Loading.Loading _previousLoading;
+		private Loading _previousLoading;
 		
 		public Scheduler(WorkerSettings workerSettings)
 		{
 			_workerSettings = workerSettings;
-			_previousLoading = Loading.Loading.Full;
-		}
-
-		public TimeSpan GetInitialInterval()
-		{
-			return GetWorkerInterval(Loading.Loading.Full);
 		}
 
 		public TimeSpan GetFailureInterval()
@@ -28,14 +23,14 @@ namespace WindowsService.Scheduling.Schedulers
 			return _workerSettings.FailureInterval;
 		}
 
-		public TimeSpan GetWorkerInterval(Loading.Loading loading)
+		public TimeSpan GetWorkerInterval(Loading loading)
 		{
 			_previousLoading = loading;
 
 			return _workerSettings.LoadingIntervals.Single(x => x.Loading == loading).Interval;
 		}
 
-		public bool IsLoadingChanged(Loading.Loading loading)
+		public bool IsLoadingChanged(Loading loading)
 		{
 			return _previousLoading != loading;
 		}
