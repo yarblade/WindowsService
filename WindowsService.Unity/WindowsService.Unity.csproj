@@ -33,7 +33,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>yarblade.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\yarblade.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Practices.Unity">
@@ -58,8 +58,10 @@
     <Compile Include="StatelessWorkerRunner.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\yarblade.snk">
+      <Link>yarblade.snk</Link>
+    </None>
     <None Include="packages.config" />
-    <None Include="yarblade.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WindowsService.Core\WindowsService.Core.csproj">
