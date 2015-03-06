@@ -4,10 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using WindowsService.Core.Workers;
+using WindowsService.Scheduling.Entities;
 using WindowsService.Scheduling.Example.Entities;
 using WindowsService.Scheduling.Example.Repositories;
 using WindowsService.Scheduling.Example.Web;
-using WindowsService.Scheduling.Loading;
+using WindowsService.Scheduling.Helpers;
 
 using Newtonsoft.Json;
 
@@ -15,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace WindowsService.Scheduling.Example.Workers
 {
-	internal class TimeAsyncWorker : IAsyncWorker<Loading.Loading>
+	internal class TimeAsyncWorker : IAsyncWorker<Loading>
 	{
 		private readonly int _citiesPerRequest;
 		private readonly ICityRepository _cityRepository;
@@ -30,7 +31,7 @@ namespace WindowsService.Scheduling.Example.Workers
 			_fileName = fileName;
 		}
 
-		public async Task<Loading.Loading> DoWork(CancellationToken token)
+		public async Task<Loading> DoWork(CancellationToken token)
 		{
 			var ids = _cityRepository.GetCityIds(_citiesPerRequest);
 			var processed = 0;
@@ -54,6 +55,11 @@ namespace WindowsService.Scheduling.Example.Workers
 					}
 				}
 			}
+
+			/*
+			Thread.Sleep(TimeSpan.FromSeconds(30));
+			Console.WriteLine("TimeAsyncWorker stopped.");
+			*/
 
 			return LoadingCalculator.Calculate(processed, _citiesPerRequest);
 		}

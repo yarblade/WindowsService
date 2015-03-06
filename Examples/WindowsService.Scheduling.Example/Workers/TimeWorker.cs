@@ -3,10 +3,11 @@ using System.IO;
 using System.Threading;
 
 using WindowsService.Core.Workers;
+using WindowsService.Scheduling.Entities;
 using WindowsService.Scheduling.Example.Entities;
 using WindowsService.Scheduling.Example.Repositories;
 using WindowsService.Scheduling.Example.Web;
-using WindowsService.Scheduling.Loading;
+using WindowsService.Scheduling.Helpers;
 
 using Newtonsoft.Json;
 
@@ -14,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace WindowsService.Scheduling.Example.Workers
 {
-	internal class TimeWorker : IWorker<Loading.Loading>
+	internal class TimeWorker : IWorker<Loading>
 	{
 		private readonly int _citiesPerRequest;
 		private readonly ICityRepository _cityRepository;
@@ -29,7 +30,7 @@ namespace WindowsService.Scheduling.Example.Workers
 			_fileName = fileName;
 		}
 
-		public Loading.Loading DoWork(CancellationToken token)
+		public Loading DoWork(CancellationToken token)
 		{
 			token.ThrowIfCancellationRequested();
 
@@ -39,7 +40,7 @@ namespace WindowsService.Scheduling.Example.Workers
 
 			if (time == null)
 			{
-				return Loading.Loading.None;
+				return Loading.None;
 			}
 			
 			using (var writer = File.AppendText(_fileName))
@@ -49,6 +50,11 @@ namespace WindowsService.Scheduling.Example.Workers
 					writer.WriteLine("{0:s} : {2:00000000000} : {1}", time.DateTime + TimeSpan.FromMilliseconds(pair.Value.Offset), pair.Value.Name, pair.Value.Id);
 				}
 			}
+
+			/*
+			Thread.Sleep(TimeSpan.FromSeconds(30));
+			Console.WriteLine("TimeWorker stopped.");
+			*/
 
 			return LoadingCalculator.Calculate(time.Clocks.Count, _citiesPerRequest);
 		}

@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService.Scheduling.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService.Scheduling.Example", "Examples\WindowsService.Scheduling.Example\WindowsService.Scheduling.Example.csproj", "{4888028B-4BE8-4C82-BFEA-8793EF107C8B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EB91387B-EDA5-4E5F-B644-E0B7585CE2A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService.Core.UnitTests", "Tests\WindowsService.Core.UnitTests\WindowsService.Core.UnitTests.csproj", "{FD778049-56C9-4B7B-A704-07AE74877016}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,11 +45,16 @@ Global
 		{4888028B-4BE8-4C82-BFEA-8793EF107C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4888028B-4BE8-4C82-BFEA-8793EF107C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4888028B-4BE8-4C82-BFEA-8793EF107C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD778049-56C9-4B7B-A704-07AE74877016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD778049-56C9-4B7B-A704-07AE74877016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD778049-56C9-4B7B-A704-07AE74877016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD778049-56C9-4B7B-A704-07AE74877016}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4888028B-4BE8-4C82-BFEA-8793EF107C8B} = {CDD7CAE5-1D0F-46A9-B209-61760D773A61}
+		{FD778049-56C9-4B7B-A704-07AE74877016} = {EB91387B-EDA5-4E5F-B644-E0B7585CE2A6}
 	EndGlobalSection
 EndGlobal
