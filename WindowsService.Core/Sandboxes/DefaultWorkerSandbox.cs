@@ -10,40 +10,41 @@ namespace WindowsService.Core.Sandboxes
 {
 	public class DefaultWorkerSandbox<T> : IWorkerSandbox
 	{
+		private readonly TaskCompletionSource<bool> _completionSource;
 		private readonly TimeSpan _interval;
 		private readonly string _workerName;
 		private readonly IWorkerRunner<T> _workerRunner;
-		private Task _task;
 
 		public DefaultWorkerSandbox(IWorkerRunner<T> workerRunner, string workerName, TimeSpan interval)
 		{
 			_workerRunner = workerRunner;
 			_workerName = workerName;
 			_interval = interval;
+			_completionSource = new TaskCompletionSource<bool>();
 		}
+
+		public Task Completion { get { return _completionSource.Task; } }
 
 		public void StartWorkerExecution(CancellationToken token)
 		{
-			_task = Task.Run(() => ExecuteAsync(token), CancellationToken.None);
+			Task.Run(() => ExecuteAsync(token), CancellationToken.None);
 		}
 
-		private async void ExecuteAsync(CancellationToken token)
+		private async Task ExecuteAsync(CancellationToken token)
 		{
 			while (!token.IsCancellationRequested)
 			{
 				await _workerRunner.RunAsync(_workerName, token);
 
-				await Task.Delay(_interval, token);
-			}
-		}
+				if (token.IsCancellationRequested)
+				{
+					break;
+				}
 
-		public void Dispose()
-		{
-			if (_task != null)
-			{
-				_task.Wait();
-				_task = null;
+				await Task.Delay(_interval, CancellationToken.None);
 			}
+
+			_completionSource.SetResult(true);
 		}
 	}
 }

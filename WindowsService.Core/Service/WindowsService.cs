@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceProcess;
 using System.Threading;
+using System.Threading.Tasks;
 
 using WindowsService.Core.Exceptions;
 using WindowsService.Core.Sandboxes;
@@ -34,6 +37,9 @@ namespace WindowsService.Core.Service
 				Console.WriteLine(@"Press any key to stop service");
 				Console.ReadKey();
 				OnStop();
+
+				Console.WriteLine(@"Press any key to stop service2");
+				Console.ReadKey();
 			}
 			else
 			{
@@ -66,10 +72,7 @@ namespace WindowsService.Core.Service
 				{
 					_tokenSource.Cancel();
 
-					foreach (var sandbox in _sandboxes)
-					{
-						sandbox.Dispose();
-					}
+					Task.WaitAll(_sandboxes.Select(x => x.Completion).ToArray());
 				});
 
 			_log.Info("Service stopped.");

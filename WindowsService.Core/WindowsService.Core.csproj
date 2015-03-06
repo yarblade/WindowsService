@@ -58,6 +58,9 @@
     <Compile Include="Service\WindowsService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Timers\DefaultTimer.cs" />
+    <Compile Include="Timers\ITimer.cs" />
+    <Compile Include="Timers\SingleThreadTimer.cs" />
     <Compile Include="Workers\AsyncWorkerAdapter.cs" />
     <Compile Include="Workers\DefaultWorkerRunner.cs" />
     <Compile Include="Workers\IAsyncWorker.cs" />
