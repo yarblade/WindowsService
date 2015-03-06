@@ -37,9 +37,6 @@ namespace WindowsService.Core.Service
 				Console.WriteLine(@"Press any key to stop service");
 				Console.ReadKey();
 				OnStop();
-
-				Console.WriteLine(@"Press any key to stop service2");
-				Console.ReadKey();
 			}
 			else
 			{
