@@ -1,6 +1,7 @@
 ﻿using System;
 
 using WindowsService.Core.Sandboxes;
+using WindowsService.Core.Timers;
 using WindowsService.Core.Workers;
 using WindowsService.Scheduling.Sandboxes;
 using WindowsService.Scheduling.Schedulers;
@@ -35,10 +36,15 @@ namespace WindowsService.Scheduling.Unity.Registrars
 
 		private static void RegisterSandbox<T>(IUnityContainer container, string workerName)
 		{
+			container.RegisterType<ITimer, SingleThreadTimer>();
 			container.RegisterType<IWorkerSandbox>(
 				workerName,
 				new InjectionFactory(
-					c => new ScheduledWorkerSandbox<T>(workerName, new StatelessWorkerRunner<T>(c), c.Resolve<IScheduler<T>>(workerName), c.Resolve<ILog>())));
+					c => new ScheduledWorkerSandbox<T>(workerName,
+						new SingleThreadTimer(),
+						new StatelessWorkerRunner<T>(c),
+						c.Resolve<IScheduler<T>>(workerName),
+						c.Resolve<ILog>())));
 		}
 
 		private static void RegisterScheduler<T>(IUnityContainer container, string workerName)
