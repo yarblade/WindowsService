@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 
 
@@ -7,6 +8,15 @@ namespace WindowsService.Core.Timers
 	public sealed class SingleThreadTimer : DefaultTimer
 	{
 		private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(initialCount: 1);
+
+		public SingleThreadTimer()
+		{
+		}
+
+		public SingleThreadTimer(TimeSpan interval)
+			: base(interval)
+		{
+		}
 
 		protected override void OnTimerExecute(TimerCallback callback)
 		{

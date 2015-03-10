@@ -68,8 +68,11 @@
   <ItemGroup>
     <Compile Include="Entities\TestEntity.cs" />
     <Compile Include="Exceptions\ExceptionShieldTests.cs" />
+    <Compile Include="Extensions\ExceptionExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sandboxes\DefaultWorkerSandboxTests.cs" />
+    <Compile Include="Timers\DefaultTimerTests.cs" />
+    <Compile Include="Timers\SingleThreadTimerTests.cs" />
     <Compile Include="Workers\AsyncWorkerAdapterTests.cs" />
     <Compile Include="Workers\DefaultWorkerRunnerTests.cs" />
   </ItemGroup>
@@ -85,6 +88,7 @@
       <Name>WindowsService.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
