@@ -67,7 +67,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\TestEntity.cs" />
-    <Compile Include="Exceptions\ExceptionShieldTests.cs" />
     <Compile Include="Extensions\ExceptionExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sandboxes\DefaultWorkerSandboxTests.cs" />

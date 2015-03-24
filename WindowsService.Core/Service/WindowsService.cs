@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ServiceProcess;
 using System.Threading;
 using System.Threading.Tasks;
 
-using WindowsService.Core.Exceptions;
+using WindowsService.Core.Extensions;
 using WindowsService.Core.Sandboxes;
 
 using Common.Log;
@@ -18,13 +17,11 @@ namespace WindowsService.Core.Service
 	{
 		private readonly ILog _log;
 		private readonly IWorkerSandbox[] _sandboxes;
-		private readonly IExceptionShield _shield;
 		private readonly CancellationTokenSource _tokenSource;
 
-		public WindowsService(IWorkerSandbox[] sandboxes, IExceptionShield shield, ILog log)
+		public WindowsService(IWorkerSandbox[] sandboxes, ILog log)
 		{
 			_sandboxes = sandboxes;
-			_shield = shield;
 			_log = log;
 			_tokenSource = new CancellationTokenSource();
 		}
@@ -48,7 +45,7 @@ namespace WindowsService.Core.Service
 		{
 			_log.Info("Service starting.");
 
-			_shield.Process(
+			HandleException(
 				() =>
 				{
 					foreach (var sandbox in _sandboxes)
@@ -64,7 +61,7 @@ namespace WindowsService.Core.Service
 		{
 			_log.Info("Service stopping.");
 
-			_shield.Process(
+            HandleException(
 				() =>
 				{
 					_tokenSource.Cancel();
@@ -74,5 +71,37 @@ namespace WindowsService.Core.Service
 
 			_log.Info("Service stopped.");
 		}
+
+        public void HandleException(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (AggregateException ex)
+            {
+                ex.Handle(
+                    x =>
+                    {
+                        if (!x.IsCritical())
+                        {
+                            _log.Fatal("Unexpected error: " + x);
+                        }
+
+                        return false;
+                    });
+
+                throw;
+            }
+            catch (Exception ex)
+            {
+                if (!ex.IsCritical())
+                {
+                    _log.Fatal("Unexpected error: " + ex);
+                }
+
+                throw;
+            }
+        }
 	}
 }

@@ -49,8 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\ExceptionShield.cs" />
-    <Compile Include="Exceptions\IExceptionShield.cs" />
     <Compile Include="Sandboxes\DefaultWorkerSandbox.cs" />
     <Compile Include="Sandboxes\IWorkerSandbox.cs" />
     <Compile Include="Extensions\ExceptionExtension.cs" />
