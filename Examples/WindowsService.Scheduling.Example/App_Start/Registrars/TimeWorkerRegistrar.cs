@@ -1,12 +1,12 @@
-﻿using WindowsService.Scheduling.Example.Repositories;
+﻿using System.Configuration;
+
+using WindowsService.Scheduling.Example.Repositories;
 using WindowsService.Scheduling.Example.Web;
 using WindowsService.Scheduling.Example.Workers;
 using WindowsService.Scheduling.Settings;
 using WindowsService.Scheduling.Unity.Registrars;
 
 using Microsoft.Practices.Unity;
-
-using SettingsReader;
 
 
 
@@ -17,9 +17,9 @@ namespace WindowsService.Scheduling.Example.Registrars
 		public static void Register(IUnityContainer container)
 		{
 			container.RegisterType<ICityRepository, CityRepository>(WorkerNames.TimeWorker, new ContainerControlledLifetimeManager());
-			container.RegisterType<WorkerSettings>(
-				WorkerNames.TimeWorker,
-				new InjectionFactory(c => c.Resolve<ISettingsReader>().Read<WorkerSettings>("timeWorkerSettings")));
+            container.RegisterInstance(
+                WorkerNames.TimeWorker,
+                (IWorkerSettings)ConfigurationManager.GetSection("timeWorkerSettings"));
 
 			WorkerRegistrar.Register(
 				container,

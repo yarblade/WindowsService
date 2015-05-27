@@ -8,7 +8,7 @@ using WindowsService.Core.Timers;
 using WindowsService.Core.Workers;
 using WindowsService.Scheduling.Schedulers;
 
-using Common.Log;
+using Common.Logging;
 
 
 
@@ -88,7 +88,7 @@ namespace WindowsService.Scheduling.Sandboxes
 			{
 				var interval = _scheduler.GetWorkerInterval(loading);
 
-				_log.Info("Loading of '{0}' worker changed to {1}. New interval: {2}", _workerName, loading, interval);
+				_log.InfoFormat("Loading of '{0}' worker changed to {1}. New interval: {2}", _workerName, loading, interval);
 
 				_timer.Change(interval);
 			}
@@ -98,7 +98,7 @@ namespace WindowsService.Scheduling.Sandboxes
 		{
 			var interval = _scheduler.GetFailureInterval();
 
-			_log.Info("Worker '{0}' was failed. New interval: {1}", _workerName, interval);
+            _log.InfoFormat("Worker '{0}' was failed. New interval: {1}", _workerName, interval);
 
 			_timer.Change(interval);
 		}

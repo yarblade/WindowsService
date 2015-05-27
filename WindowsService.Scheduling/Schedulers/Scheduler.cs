@@ -10,10 +10,10 @@ namespace WindowsService.Scheduling.Schedulers
 {
 	public class Scheduler : IScheduler<Loading>
 	{
-		private readonly WorkerSettings _workerSettings;
+		private readonly IWorkerSettings _workerSettings;
 		private Loading _previousLoading;
-		
-		public Scheduler(WorkerSettings workerSettings)
+
+        public Scheduler(IWorkerSettings workerSettings)
 		{
 			_workerSettings = workerSettings;
 		}

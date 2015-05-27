@@ -8,7 +8,7 @@ using WindowsService.Scheduling.Schedulers;
 using WindowsService.Scheduling.Settings;
 using WindowsService.Unity;
 
-using Common.Log;
+using Common.Logging;
 
 using Microsoft.Practices.Unity;
 
@@ -49,7 +49,7 @@ namespace WindowsService.Scheduling.Unity.Registrars
 
 		private static void RegisterScheduler<T>(IUnityContainer container, string workerName)
 		{
-			container.RegisterType<IScheduler<T>>(workerName, new InjectionFactory(c => new Scheduler(c.Resolve<WorkerSettings>(workerName))));
+			container.RegisterType<IScheduler<T>>(workerName, new InjectionFactory(c => new Scheduler(c.Resolve<IWorkerSettings>(workerName))));
 		}
 	}
 }

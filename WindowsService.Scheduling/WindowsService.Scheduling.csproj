@@ -36,10 +36,16 @@
     <AssemblyOriginatorKeyFile>..\yarblade.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Log">
-      <HintPath>..\packages\Common.Log.1.0.0.0\lib\net45\Common.Log.dll</HintPath>
+    <Reference Include="Common.Logging, Version=3.1.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Common.Logging.3.1.0\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Common.Logging.Core.3.1.0\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,12 +54,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\IntervalElement.cs" />
+    <Compile Include="Configuration\LoadingIntervalElement.cs" />
+    <Compile Include="Configuration\LoadingIntervalsElementCollection.cs" />
+    <Compile Include="Configuration\WorkerSettingsSection.cs" />
     <Compile Include="Schedulers\IScheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sandboxes\ScheduledWorkerSandbox.cs" />
     <Compile Include="Schedulers\Scheduler.cs" />
-    <Compile Include="Settings\LoadingInterval.cs" />
-    <Compile Include="Settings\WorkerSettings.cs" />
+    <Compile Include="Settings\ILoadingInterval.cs" />
+    <Compile Include="Settings\IWorkerSettings.cs" />
     <Compile Include="Entities\Loading.cs" />
     <Compile Include="Helpers\LoadingCalculator.cs" />
   </ItemGroup>
@@ -69,9 +79,7 @@
       <Name>WindowsService.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Timers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

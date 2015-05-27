@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using WindowsService.Core.Extensions;
 using WindowsService.Core.Sandboxes;
 
-using Common.Log;
+using Common.Logging;
 
 
 
